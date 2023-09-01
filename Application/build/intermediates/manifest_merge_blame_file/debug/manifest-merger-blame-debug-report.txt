@@ -52,7 +52,7 @@
 41-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:35:22-76
 42
 43    <application
-43-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:37:5-49:19
+43-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:37:5-53:19
 44        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 44-->[com.android.support:support-compat:28.0.0] C:\Users\Robin\.gradle\caches\transforms-3\288307da53bdcc6fb8f527684b06adbc\transformed\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 45        android:debuggable="true"
@@ -60,36 +60,40 @@
 46-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:38:9-45
 47        android:label="@string/app_name"
 47-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:37:18-50
-48        android:testOnly="true"
-49        android:theme="@android:style/Theme.Holo.Light" >
-49-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:39:9-56
-50        <activity
-50-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:40:9-46:20
-51            android:name="com.example.android.bluetoothlegatt.DeviceScanActivity"
-51-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:40:19-53
+48        android:theme="@android:style/Theme.Holo.Light" >
+48-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:39:9-56
+49        <activity
+49-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:40:9-48:20
+50            android:name="com.example.android.bluetoothlegatt.DeviceScanActivity"
+50-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:40:19-53
+51            android:exported="true"
+51-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:42:13-36
 52            android:label="@string/app_name" >
 52-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:41:13-45
 53            <intent-filter>
-53-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:42:13-45:29
+53-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:44:13-47:29
 54                <action android:name="android.intent.action.MAIN" />
-54-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:43:17-68
-54-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:43:25-66
+54-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:45:17-68
+54-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:45:25-66
 55
 56                <category android:name="android.intent.category.LAUNCHER" />
-56-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:44:17-76
-56-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:44:27-74
+56-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:46:17-76
+56-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:46:27-74
 57            </intent-filter>
 58        </activity>
-59        <activity android:name="com.example.android.bluetoothlegatt.DeviceControlActivity" />
-59-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:47:9-58
-59-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:47:19-56
-60
-61        <service
-61-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:48:9-77
-62            android:name="com.example.android.bluetoothlegatt.BluetoothLeService"
-62-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:48:18-52
-63            android:enabled="true" />
-63-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:48:53-75
-64    </application>
-65
-66</manifest>
+59        <activity
+59-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:49:9-51:38
+60            android:name="com.example.android.bluetoothlegatt.DeviceControlActivity"
+60-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:50:13-50
+61            android:exported="true" />
+61-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:51:13-36
+62
+63        <service
+63-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:52:9-77
+64            android:name="com.example.android.bluetoothlegatt.BluetoothLeService"
+64-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:52:18-52
+65            android:enabled="true" />
+65-->D:\Android\workspace\BluetoothLeGatt\Application\src\main\AndroidManifest.xml:52:53-75
+66    </application>
+67
+68</manifest>
