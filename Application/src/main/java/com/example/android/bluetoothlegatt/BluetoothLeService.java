@@ -50,8 +50,7 @@ public class BluetoothLeService extends Service {
     private BluetoothGatt mBluetoothGatt;
     private int mDefaultMtu = 247;
     private boolean mWriteCompleted = false;
-
-    private int tx_timeout = 10;
+    private int maxTransmitTime = 1000;//unit :ms
     private int mConnectionState = STATE_DISCONNECTED;
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -66,12 +65,6 @@ public class BluetoothLeService extends Service {
             "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
     public final static String EXTRA_DATA =
             "com.example.bluetooth.le.EXTRA_DATA";
-
-    private void resetSendState()
-    {
-        mWriteCompleted = false;
-        tx_timeout = 10;
-    }
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
@@ -337,34 +330,51 @@ public class BluetoothLeService extends Service {
         descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
         mBluetoothGatt.writeDescriptor(descriptor);
     }
-
-    //TODO:此函数用于发送数据到对端设备（用户自定义服务）,且根据mtu做了分包处理
-    public void sendData(byte[] data) throws InterruptedException {
+    /*
+     * Returns:
+     * 0-send success
+     * 1-send fail
+     * */
+    public int sendData(byte[] data) {
         int maxPacketSize = mDefaultMtu - 3;
-
+        BluetoothGattService service;
+        BluetoothGattCharacteristic characteristic;
         int offset = 0;
+
+        //null params check
+        if(mBluetoothGatt == null){
+            return 1;
+        }
+        service = mBluetoothGatt.getService(UUID.fromString(SampleGattAttributes.TRANSMIT_SERVICE_UUID));
+        if(service == null){
+            return 1;
+        }
+        characteristic = service.getCharacteristic(UUID.fromString(SampleGattAttributes.TRANSMIT_WRITE_UUID));
+        if(characteristic == null){
+            return 1;
+        }
+
         while (offset < data.length) {
             int length = Math.min(data.length - offset, maxPacketSize - 3);
             byte[] packet = new byte[length];
             System.arraycopy(data, offset, packet, 0, length);
-            if (mBluetoothGatt != null) {
-                BluetoothGattService service = mBluetoothGatt.getService(UUID.fromString(SampleGattAttributes.TRANSMIT_SERVICE_UUID));
-                BluetoothGattCharacteristic characteristic = service.getCharacteristic(UUID.fromString(SampleGattAttributes.TRANSMIT_WRITE_UUID));
-                characteristic.setValue(packet);
-                mBluetoothGatt.writeCharacteristic(characteristic);
-            }
+            characteristic.setValue(packet);
+            mBluetoothGatt.writeCharacteristic(characteristic);
 
-            while((tx_timeout--) != 0)
-            {
-                if(mWriteCompleted) {
+            long startTime = System.currentTimeMillis();
+            for(;;){
+                if(mWriteCompleted){
                     break;
                 }
-                Thread.sleep(5);
+                if((System.currentTimeMillis() - startTime > maxTransmitTime)){
+                    return 1;
+                }
             }
-            resetSendState();
-
+            mWriteCompleted = false;
             offset += length;
         }
+
+        return 0;
     }
 
     /**

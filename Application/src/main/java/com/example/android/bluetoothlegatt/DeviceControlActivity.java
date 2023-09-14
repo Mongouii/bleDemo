@@ -232,11 +232,9 @@ public class DeviceControlActivity extends Activity {
                         hexBytes[i] = (byte) ((Character.digit(byteString.charAt(0), 16) << 4)
                                 + Character.digit(byteString.charAt(1), 16));
                     }
-                    try {
-                        mBluetoothLeService.sendData(hexBytes);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+
+                    mBluetoothLeService.sendData(hexBytes);
+
                     send_byte_cnt += length;
 
                     mSendCntTv.setText(Integer.toString(send_byte_cnt));
